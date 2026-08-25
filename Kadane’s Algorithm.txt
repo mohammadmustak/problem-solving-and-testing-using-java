@@ -1,0 +1,69 @@
+import java.util.*;
+
+public class Solution {
+
+    static int[] maxSubarray(List<Integer> arr) {
+
+        int current = arr.get(0);
+        int maxSubarray = arr.get(0);
+
+        int maxSubsequence = 0;
+        int maxElement = arr.get(0);
+
+        boolean hasPositive = false;
+
+        for (int i = 0; i < arr.size(); i++) {
+
+            int x = arr.get(i);
+
+            // Maximum subarray - Kadane's Algorithm
+            if (i > 0) {
+                current = Math.max(x, current + x);
+                maxSubarray = Math.max(maxSubarray, current);
+            }
+
+            // Find largest element
+            if (x > maxElement) {
+                maxElement = x;
+            }
+
+            // Maximum subsequence
+            if (x > 0) {
+                maxSubsequence += x;
+                hasPositive = true;
+            }
+        }
+
+        // If all elements are negative,
+        // choose the largest (least negative) element
+        if (!hasPositive) {
+            maxSubsequence = maxElement;
+        }
+
+        return new int[] {maxSubarray, maxSubsequence};
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+
+        int t = sc.nextInt();
+
+        while (t-- > 0) {
+
+            int n = sc.nextInt();
+
+            List<Integer> arr = new ArrayList<Integer>();
+
+            for (int i = 0; i < n; i++) {
+                arr.add(sc.nextInt());
+            }
+
+            int[] result = maxSubarray(arr);
+
+            System.out.println(result[0] + " " + result[1]);
+        }
+
+        sc.close();
+    }
+}
