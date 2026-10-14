@@ -1,0 +1,100 @@
+
+import java.util.Scanner;
+
+class Vehicle {
+double calculateFare(double distance) {
+return 0;
+}
+}
+
+class Bike extends Vehicle {
+@Override
+double calculateFare(double distance) {
+return distance * 5;
+}
+}
+
+class Cab extends Vehicle {
+@Override
+double calculateFare(double distance) {
+return distance * 12;
+}
+}
+
+class Auto extends Vehicle {
+@Override
+double calculateFare(double distance) {
+return distance * 12;
+}
+}
+
+class Driver {
+String name;
+
+Driver(String name) {
+this.name = name;
+}
+}
+
+class Rider {
+String name;
+
+Rider(String name) {
+this.name = name;
+}
+}
+
+class Trip {
+private Vehicle vehicle;
+private double distance;
+
+Trip(Vehicle vehicle, double distance) {
+if (vehicle == null || distance <= 0) {
+throw new IllegalArgumentException("Invalid booking");
+}
+this.vehicle = vehicle;
+this.distance = distance;
+}
+
+double getFare() {
+return vehicle.calculateFare(distance);
+}
+}
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+int n = sc.nextInt();
+
+for (int i = 0; i < n; i++) {
+String type = sc.next();
+double distance = sc.nextDouble();
+
+try {
+Vehicle vehicle;
+
+switch (type) {
+case "Bike":
+vehicle = new Bike();
+break;
+case "Cab":
+vehicle = new Cab();
+break;
+case "Auto":
+vehicle = new Auto();
+break;
+default:
+throw new IllegalArgumentException("Invalid ride type");
+}
+
+Trip trip = new Trip(vehicle, distance);
+System.out.println((int) trip.getFare());
+
+} catch (IllegalArgumentException e) {
+System.out.println("Invalid booking");
+}
+}
+
+sc.close();
+}
+}
