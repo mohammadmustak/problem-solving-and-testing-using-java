@@ -1,0 +1,39 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+ArrayList<Integer> marks = new ArrayList<>();
+
+System.out.print("Enter number of students: ");
+int n = sc.nextInt();
+
+if (n <= 0) {
+System.out.println("Invalid number of students");
+sc.close();
+return;
+}
+
+System.out.println("Enter marks:");
+int highest = 0;
+int sum = 0;
+
+for (int i = 0; i < n; i++) {
+int mark = sc.nextInt();
+marks.add(mark);
+
+if (i == 0 || mark > highest) {
+highest = mark;
+}
+
+sum += mark;
+}
+
+System.out.println("Student Marks: " + marks);
+System.out.println("Highest Mark: " + highest);
+System.out.printf("Average Mark: %.2f%n", (double) sum / n);
+
+sc.close();
+}
+}
