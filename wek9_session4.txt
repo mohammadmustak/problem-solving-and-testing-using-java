@@ -1,0 +1,91 @@
+
+import java.util.Scanner;
+
+interface Payment {
+void pay(double amount);
+double getFeeRate();
+}
+
+class CreditCardPayment implements Payment {
+public void pay(double amount) {
+System.out.println("CreditCard payment: " + amount);
+}
+
+public double getFeeRate() {
+return 0.02;
+}
+}
+
+class UPIPayment implements Payment {
+public void pay(double amount) {
+System.out.println("UPI payment: " + amount);
+}
+
+public double getFeeRate() {
+return 0.01;
+}
+}
+
+class NetBankingPayment implements Payment {
+public void pay(double amount) {
+System.out.println("NetBanking payment: " + amount);
+}
+
+public double getFeeRate() {
+return 0.015;
+}
+}
+
+abstract class PaymentProcessor {
+abstract double processPayment(Payment payment, double amount);
+}
+
+class OnlinePaymentProcessor extends PaymentProcessor {
+@Override
+double processPayment(Payment payment, double amount) {
+payment.pay(amount);
+return amount + amount * payment.getFeeRate();
+}
+}
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+
+int n = sc.nextInt();
+OnlinePaymentProcessor processor = new OnlinePaymentProcessor();
+
+for (int i = 0; i < n; i++) {
+int type = sc.nextInt();
+double amount = sc.nextDouble();
+
+Payment payment;
+String paymentType;
+
+switch (type) {
+case 1:
+payment = new CreditCardPayment();
+paymentType = "CreditCard";
+break;
+case 2:
+payment = new UPIPayment();
+paymentType = "UPI";
+break;
+case 3:
+payment = new NetBankingPayment();
+paymentType = "NetBanking";
+break;
+default:
+continue;
+}
+
+double finalAmount =
+processor.processPayment(payment, amount);
+
+System.out.printf("%s %.2f%n",
+paymentType, finalAmount);
+}
+
+sc.close();
+}
+}
