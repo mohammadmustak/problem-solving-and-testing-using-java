@@ -1,0 +1,31 @@
+import java.util.*;
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+
+int n = sc.nextInt();
+TreeMap<String, Integer> hashtags = new TreeMap<>();
+
+for (int i = 0; i < n; i++) {
+String tag = sc.next();
+hashtags.put(tag, hashtags.getOrDefault(tag, 0) + 1);
+}
+
+List<String> list = new ArrayList<>(hashtags.keySet());
+
+list.sort((a, b) -> {
+int result = hashtags.get(b).compareTo(hashtags.get(a));
+if (result == 0) {
+return a.compareTo(b);
+}
+return result;
+});
+
+for (String tag : list) {
+System.out.println(tag + " " + hashtags.get(tag));
+}
+
+sc.close();
+}
+}
