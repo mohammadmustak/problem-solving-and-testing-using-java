@@ -1,0 +1,19 @@
+import java.util.Stack;
+
+public class Main {
+public static void main(String[] args) {
+Stack<String> history = new Stack<>();
+
+history.push("Google");
+history.push("YouTube");
+history.push("Instagram");
+history.push("Facebook");
+
+System.out.println("Browser History: " + history);
+
+System.out.println("Back: " + history.pop());
+System.out.println("Back: " + history.pop());
+
+System.out.println("Remaining History: " + history);
+}
+}
