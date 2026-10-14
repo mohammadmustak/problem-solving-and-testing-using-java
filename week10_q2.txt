@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+ArrayList<Integer> marks = new ArrayList<>();
+
+System.out.print("Enter number of students: ");
+int n = sc.nextInt();
+
+System.out.println("Enter student marks:");
+for (int i = 0; i < n; i++) {
+marks.add(sc.nextInt());
+}
+
+System.out.println("Student Marks:");
+for (int i = 0; i < marks.size(); i++) {
+System.out.println("Student " + (i + 1) + ": " + marks.get(i));
+}
+
+sc.close();
+}
+}
