@@ -1,0 +1,91 @@
+
+import java.util.*;
+
+class Product {
+int id;
+String name;
+int stock;
+double price;
+
+Product(int id, String name, int stock, double price) {
+this.id = id;
+this.name = name;
+this.stock = stock;
+this.price = price;
+}
+
+void display() {
+System.out.println(id + " " + name + " " + stock + " " + price);
+}
+}
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+
+int n = sc.nextInt();
+Map<Integer, Product> inventory = new HashMap<>();
+
+for (int i = 0; i < n; i++) {
+int id = sc.nextInt();
+String name = sc.next();
+int stock = sc.nextInt();
+double price = sc.nextDouble();
+
+inventory.put(id, new Product(id, name, stock, price));
+}
+
+// Update stock after sales
+int sales = sc.nextInt();
+
+for (int i = 0; i < sales; i++) {
+int id = sc.nextInt();
+int quantity = sc.nextInt();
+
+Product p = inventory.get(id);
+
+if (p != null) {
+if (quantity >= 0 && quantity <= p.stock) {
+p.stock -= quantity;
+} else {
+System.out.println("Invalid sale for product " + id);
+}
+} else {
+System.out.println("Product not found: " + id);
+}
+}
+
+// Find products below a given stock threshold
+int threshold = sc.nextInt();
+System.out.println("Low-stock products:");
+
+for (Product p : inventory.values()) {
+if (p.stock < threshold) {
+p.display();
+}
+}
+
+// Display all products sorted by remaining stock
+List<Product> products = new ArrayList<>(inventory.values());
+products.sort(Comparator.comparingInt(p -> p.stock));
+
+System.out.println("Products sorted by stock:");
+
+for (Product p : products) {
+p.display();
+}
+
+// Retrieve a product by ID
+int searchId = sc.nextInt();
+Product found = inventory.get(searchId);
+
+if (found != null) {
+System.out.println("Product found:");
+found.display();
+} else {
+System.out.println("Product not found");
+}
+
+sc.close();
+}
+}
