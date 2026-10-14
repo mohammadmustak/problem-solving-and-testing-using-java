@@ -1,0 +1,39 @@
+
+import java.util.*;
+
+public class Main {
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+
+int n = sc.nextInt();
+int[] nums = new int[n];
+
+for (int i = 0; i < n; i++) {
+nums[i] = sc.nextInt();
+}
+
+int k = sc.nextInt();
+
+Map<Integer, Integer> freq = new HashMap<>();
+
+for (int num : nums) {
+freq.put(num, freq.getOrDefault(num, 0) + 1);
+}
+
+List<Integer> list = new ArrayList<>(freq.keySet());
+
+list.sort((a, b) -> {
+int cmp = Integer.compare(freq.get(b), freq.get(a));
+return (cmp != 0) ? cmp : Integer.compare(a, b);
+});
+
+for (int i = 0; i < k && i < list.size(); i++) {
+System.out.print(list.get(i));
+if (i < k - 1 && i < list.size() - 1) {
+System.out.print(" ");
+}
+}
+
+sc.close();
+}
+}
