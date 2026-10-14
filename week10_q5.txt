@@ -1,0 +1,92 @@
+import java.util.Scanner;
+
+class Node {
+String song;
+Node next;
+
+Node(String song) {
+this.song = song;
+this.next = null;
+}
+}
+
+public class Main {
+Node head = null;
+
+// Add a song
+void addSong(String song) {
+Node newNode = new Node(song);
+
+if (head == null) {
+head = newNode;
+} else {
+Node temp = head;
+while (temp.next != null) {
+temp = temp.next;
+}
+temp.next = newNode;
+}
+System.out.println(song + " added to playlist.");
+}
+
+// Remove a song
+void removeSong(String song) {
+if (head == null) {
+System.out.println("Playlist is empty.");
+return;
+}
+
+if (head.song.equalsIgnoreCase(song)) {
+head = head.next;
+System.out.println(song + " removed from playlist.");
+return;
+}
+
+Node temp = head;
+while (temp.next != null &&
+!temp.next.song.equalsIgnoreCase(song)) {
+temp = temp.next;
+}
+
+if (temp.next == null) {
+System.out.println("Song not found.");
+} else {
+temp.next = temp.next.next;
+System.out.println(song + " removed from playlist.");
+}
+}
+
+// Display playlist
+void displayPlaylist() {
+if (head == null) {
+System.out.println("Playlist is empty.");
+return;
+}
+
+Node temp = head;
+System.out.println("Music Playlist:");
+while (temp != null) {
+System.out.println(temp.song);
+temp = temp.next;
+}
+}
+
+public static void main(String[] args) {
+Scanner sc = new Scanner(System.in);
+Main playlist = new Main();
+
+playlist.addSong("Shape of You");
+playlist.addSong("Perfect");
+playlist.addSong("Believer");
+
+playlist.displayPlaylist();
+
+System.out.print("Enter song to remove: ");
+String song = sc.nextLine();
+
+playlist.removeSong(song);
+playlist.displayPlaylist();
+
+sc.close();
+}
+}
